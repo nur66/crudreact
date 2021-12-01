@@ -16,7 +16,7 @@ class CreateMahasiswasTable extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->integer('npm');
+            $table->string('npm');
             $table->string('email');
             $table->enum('jurusan', ['Teknik Informatika', 'Teknik Industri']);
             $table->string('foto');
