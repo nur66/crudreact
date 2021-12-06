@@ -24,4 +24,6 @@ Route::get('/mahasiswa', [MahasiswaController::class, 'get']);
 
 Route::post('/mahasiswa', [MahasiswaController::class, 'post']);
 
+Route::post('/mahasiswa/delete', [MahasiswaController::class, 'delete']);
+
 Route::post('/mahasiswa/ubah', [MahasiswaController::class, 'put'] );

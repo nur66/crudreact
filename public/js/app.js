@@ -6546,13 +6546,14 @@ var Home = function Home() {
       children: "Tabel Mahasiswa"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
       type: "submit",
-      className: "btn btn-primary",
+      className: "btn btn-primary mb-2",
       onClick: function onClick() {
         setBooleanTambah(true);
       },
       children: "Tambah"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
       bordered: true,
+      className: "pt-2",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
@@ -6611,6 +6612,12 @@ var Home = function Home() {
                 children: "Ubah"
               }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                 className: "btn btn-danger",
+                onClick: function onClick() {
+                  console.log(siswa.id);
+                  setBooleanHapus(true);
+                  setId(siswa.id);
+                  setGambar(siswa.foto);
+                },
                 children: "Hapus"
               })]
             })]
@@ -6816,6 +6823,49 @@ var Home = function Home() {
             bersih();
           },
           children: "Batal"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      show: booleanHapus,
+      onHide: function onHide() {
+        bersih();
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Header, {
+        closeButton: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Title, {
+          children: "Hapus Data Mahasiswa"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Body, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+          children: "Apakah anda setuju menghapus data mahasiswa ini?"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Footer, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn btn-success",
+          onClick: function onClick() {
+            try {
+              var fdata = {
+                // id kiri untuk ke controller, id kanan dari constanta diatas
+                id: id,
+                fotolama: gambar
+              }; // sesuai router di api
+
+              axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/mahasiswa/delete', fdata).then(function () {
+                // setelah hapus apa yang dilakukan?
+                bersih();
+                getMahasiswa();
+              });
+            } catch (error) {
+              console.log(error.message);
+            }
+          },
+          children: "Setuju"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn btn-danger",
+          onClick: function onClick() {
+            bersih();
+          },
+          children: "Tidak setuju"
         })]
       })]
     })]

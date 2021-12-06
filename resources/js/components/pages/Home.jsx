@@ -17,6 +17,7 @@ const Home = () => {
     const [gambar, setGambar] = useState('')
     const [id, setId] = useState(null)
     
+    
     const [mahasiswa, setMahasiswa] = useState([])
     const getMahasiswa = async()=>{
         try {
@@ -49,11 +50,11 @@ const Home = () => {
     return (
         <div className="container">
             <h1>Tabel Mahasiswa</h1>
-            <button type="submit" className="btn btn-primary" onClick={()=>{
+            <button type="submit" className="btn btn-primary mb-2" onClick={()=>{
                 setBooleanTambah(true)
             }}>Tambah</button>
 
-            <Table bordered>
+            <Table bordered className="pt-2">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -86,7 +87,12 @@ const Home = () => {
                                     setJurusan(siswa.jurusan)
                                     setGambar(siswa.foto)
                                 }}>Ubah</button> &nbsp;    
-                                <button className="btn btn-danger">Hapus</button>
+                                <button className="btn btn-danger" onClick={()=>{
+                                    console.log(siswa.id);
+                                    setBooleanHapus(true)
+                                    setId(siswa.id)
+                                    setGambar(siswa.foto)
+                                }}>Hapus</button>
                             </td>
                         </tr>
                     ))}
@@ -231,6 +237,43 @@ const Home = () => {
                     }}>Batal</button>
                 </Modal.Footer>
             </Modal>
+
+            {/* Modal Delete */}
+            <Modal show={booleanHapus} onHide={()=>{
+                bersih()
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Hapus Data Mahasiswa</Modal.Title>
+                </Modal.Header>
+                
+                <Modal.Body>
+                    <h4>Apakah anda setuju menghapus data mahasiswa ini?</h4>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <button className="btn btn-success" onClick={()=>{
+                        try {
+                            const fdata = {
+                                // id kiri untuk ke controller, id kanan dari constanta diatas
+                                id : id,
+                                fotolama : gambar
+                            }
+                            // sesuai router di api
+                            axios.post('/api/mahasiswa/delete', fdata).then(()=>{
+                                // setelah hapus apa yang dilakukan?
+                                bersih()
+                                getMahasiswa()
+                            })
+                        } catch (error) {
+                            console.log(error.message);
+                        }
+                    }}>Setuju</button>
+                    <button className="btn btn-danger" onClick={()=>{
+                        bersih()
+                    }}>Tidak setuju</button>
+                </Modal.Footer>
+            </Modal>
+
         </div>
     )
 }

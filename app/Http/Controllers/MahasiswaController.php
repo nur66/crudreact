@@ -56,4 +56,9 @@ class MahasiswaController extends Controller
             ]);
         }
     }
+
+    public function delete(Request $request){
+        return Mahasiswa::where('id', $request->id)->delete();
+        File::delete('foto/'.$request->fotolama);
+    }
 }
